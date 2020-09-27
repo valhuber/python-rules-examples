@@ -17,7 +17,7 @@ easy to explore your database.
 You can install this pre-configured example
 as described below.
 
-### Install Python Pre-reqs
+#### Install Python Pre-reqs
 To get started, you will need:
 
 * Pythonv3.8 (Relies on `from __future__ import annotations`, so requires Python 3.8)
@@ -31,7 +31,7 @@ To get started, you will need:
 Issues?  [Try here](https://github.com/valhuber/fab-quick-start/wiki/Mac-Python-Install-Issues).
 
 
-### Installing this sample
+#### Installing this sample
 
 Using your IDE or command line: 
 ```
@@ -42,7 +42,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### Verification
+#### Verification
 
 Either in your IDE or the command line,
 you can run tests and examine the logs
@@ -198,11 +198,8 @@ with minimal coding.  Typical fab pages can look like this:
 ***
 
 
-### Create Sample `nw` project
-Follow the procedure below to create a new FAB project.
-
 #### 1 - Create Empty fab Project
-Install FAB (and dependencies), and create a default empty FAB app:
+Create a default empty FAB app:
 ```
 # cd to nw folder
 flask fab create-app
