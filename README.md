@@ -171,7 +171,7 @@ with minimal coding.  Typical fab pages can look like this:
 1. __Predictive joins:__ favorite field of each parent is shown (product _name_ - not the foreign key `product_id_`)
 1. __Ids last:__ such boring fields are not shown on lists, and at the end on other pages
 
-<figure><img src="images/nw/generated-page.png" width="500"><figcaption>Multi-Table Page</figcaption></figure>
+<figure><img src="images/nw/generated-page.png" width="700"><figcaption>Multi-Table Page</figcaption></figure>
 
 
 ***
@@ -198,7 +198,7 @@ We now have a well-formed empty project.  We now need to acquire and __configure
 Update your `nw-app/config.py` file to denote this database name (illustrated below).
 Your project will look something like this:
 
-<figure><img src="images/nw/nw-setup.png" width="500"><figcaption>Architecture</figcaption></figure>
+<figure><img src="images/nw/nw-setup.png" width="700"><figcaption>Architecture</figcaption></figure>
 
 ##### Key FAB inputs can become tedious: `models.py` and `views.py`
 FAB requires that we edit __2 key files__ to make our "empty" project interact with the database.  These can get __tedious,__ due to per-page code required for _each_ table / page.  For more information, [see here](https://github.com/valhuber/fab-quick-start/wiki/Tedious-per-page-code).
