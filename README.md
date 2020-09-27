@@ -55,7 +55,7 @@ that depict logic execution and chaining:
 (venv)$ python upd_order_reuse.py
 ```
 
-You can also run the fab application:
+You can also run the pre-created fab application:
 ```
 (venv)$ cd ../../nw_app
 (venv)$ export FLASK_APP=app
@@ -123,7 +123,7 @@ we already have a sqlite database in our `nw/db` folder
 The first parameter identifies your database location;
 consult the sqlacodegen documentation.
 
-##### Important notes about models
+##### Important notes about models - mind the relationships
 Both `python-rules` and `fab-quickstart` depend on
 relationships.  Ideally, they exist in your database,
 in which as `sqlcodegen` will find them.  If that's
@@ -266,7 +266,7 @@ sqlite3 nw.db  # mac only
 > .quit
 ```
 
-#### 6 - Run `nw' App
+#### 6 - Run `nw` App
 You've now created a app with a dozen pages or so; run it like this:
 ```
 (venv)$ # still cd'd to nw-app
