@@ -2,8 +2,8 @@ This project is a complement to [python-rules](https://github.com/valhuber/pytho
 which explains the concepts of rules, as well being used for 
 development of `python-rules`.
 
-This project focuses on the practicalities of installation and configuration,
-by including 2 (unrelated) samples:
+Here we focus on the practicalities of installation and configuration,
+with 2 (unrelated) samples:
 * `nw` (same as in [python-rules](https://github.com/valhuber/python-rules))
 * `banking`
 
@@ -26,7 +26,9 @@ To get started, you will need:
    
 * virtualenv - see [here](https://www.google.com/url?q=https%3A%2F%2Fpackaging.python.org%2Fguides%2Finstalling-using-pip-and-virtual-environments%2F%23creating-a-virtual-environment&sa=D&sntz=1&usg=AFQjCNEu-ZbYfqRMjNQ0D0DqU1mhFpDYmw)  (e.g.,  `pip install virtualenv`)
 
-* An IDE - any will do (I've used [PyCharm](https://www.jetbrains.com/pycharm/download) and [VSCode](https://code.visualstudio.com), install notes [here](https://github.com/valhuber/fab-quick-start/wiki/IDE-Setup)) - ide will do, though different install / generate / run instructions apply for running programs
+* An IDE - any will do
+(I've used [PyCharm](https://www.jetbrains.com/pycharm/download) and [VSCode](https://code.visualstudio.com), install notes [here](https://github.com/valhuber/fab-quick-start/wiki/IDE-Setup)),
+though different install / generate / run instructions apply for running programs.
 
 Issues?  [Try here](https://github.com/valhuber/fab-quick-start/wiki/Mac-Python-Install-Issues).
 
@@ -35,11 +37,12 @@ Issues?  [Try here](https://github.com/valhuber/fab-quick-start/wiki/Mac-Python-
 
 Using your IDE or command line: 
 ```
-git fork / clone
+# fork https://github.com/valhuber/python-rules-examples.git -> yourname
+git clone https://github.com/yourname/python-rules-examples.git
 cd python-rules-examples
 virtualenv venv
 source venv/bin/activate
-pip install -r requirements.txt
+(venv)$ pip install -r requirements.txt
 ```
 
 #### Verification
@@ -75,24 +78,27 @@ virtualenv venv
 # windows .env\Scripts\activate
 source venv/bin/activate
 
-pip install -i https://test.pypi.org/simple/ python-rules
-pip install SQLAlchemy
-pip install sqlacodegen
+(venv)$ pip install -i https://test.pypi.org/simple/ python-rules
+(venv)$ pip install SQLAlchemy
+(venv)$ pip install sqlacodegen
 
 # if using fab
-pip install flask-appbuilder
-pip install fab-quick-start
+(venv)$ pip install flask-appbuilder
+(venv)$ pip install fab-quick-start
 
 ```
 
-#### Create Project structure
-Use whatever structure you like, but to make things
-definite, here's how we did it for `nw` and `banking`:
+#### Creating a New Project
+We'll recreate the `python-rules-examles`.
+We'll follow the same structure to make things definite,
+so you can compare.
+Of course, use whatever structure you like,
+here's how we did it for `nw` and `banking`:
 
 ```
 # in nw...
-mkdir nw_logic
-mkdir db
+(venv)$ mkdir nw_logic
+(venv)$ mkdir db
 ```
 
 #### Create Models
@@ -103,15 +109,16 @@ and use that to generate the database, or
 * You can use an existing database, and
 create a models file to match it.
 
-For existing databases, consider using sqlacodegen.
+For existing databases, consider using
+[`sqlacodegen`](https://pypi.org/project/sqlacodegen/).
 Here, we'll use `nw` as our example;
-we already have a sqlite database in our
-`nw/db` folder so:
+we already have a sqlite database in our `nw/db` folder
+([download a copy](/blob/master/nw/db/nw.db)) so:
 
 ```
-cd db
-sqlacodegen sqlite:///nw.db --noviews > nw/nw_logic/app/models.py
-sqlacodegen sqlite:///Northwind_small.sqlite --noviews > ../nw_logic/models.py
+(venv)$ cd db
+(venv)$ sqlacodegen sqlite:///nw.db --noviews > nw/nw_logic/app/models.py
+(venv)$ sqlacodegen sqlite:///Northwind_small.sqlite --noviews > ../nw_logic/models.py
 ```
 The first parameter identifies your database location;
 consult the sqlacodegen documentation.
@@ -126,8 +133,6 @@ not practical, SQLAlchemy also lets to define them in your models:
   * declare the **references** in the parent (not child), eg, declare orders
   for customer like this
     * `OrderDetailList = relationship("OrderDetail", backref="OrderHeader", cascade_backrefs=True)`
-
-
 
 ## Declaring Logic as Spreadsheet-like Rules
 To illustrate, let's use an adaption
@@ -202,7 +207,7 @@ with minimal coding.  Typical fab pages can look like this:
 Create a default empty FAB app:
 ```
 # cd to nw folder
-flask fab create-app
+(venv)$ flask fab create-app
 ```
 You will then be prompted for the project name and your db engine type.  When prompted:
 * Use the default engine
@@ -216,7 +221,7 @@ We now have a well-formed empty project.  We now need to acquire and __configure
 Update your `nw-app/config.py` file to denote this database name (illustrated below).
 Your project will look something like this:
 
-<figure><img src="images/nw/nw-setup.png" width="700"><figcaption>Architecture</figcaption></figure>
+<figure><img src="images/nw/nw-setup.png" width="700"><figcaption>Project Structure</figcaption></figure>
 
 ##### Key FAB inputs can become tedious: `models.py` and `views.py`
 FAB requires that we edit __2 key files__ to make our "empty" project interact with the database.  These can get __tedious,__ due to per-page code required for _each_ table / page.  For more information, [see here](https://github.com/valhuber/fab-quick-start/wiki/Tedious-per-page-code).
@@ -233,7 +238,7 @@ Finally, we need to define some pages.  That's also a bit of work to do that by 
 to create the `views.py` file from the `app/models.py` file (__hit enter__ to accept defaults when prompted):
 
 ```
-fab-quick-start run --favorites="name description" --non_favorites="id" > app/views.py
+(venv)$ fab-quick-start run --favorites="name description" --non_favorites="id" > app/views.py
 ```
 This overwrites your `nw/nw-app/app/views.py` file.  For more information, see the [FAB Quick Start Utility docs](https://github.com/valhuber/fab-quick-start#readme).
 
