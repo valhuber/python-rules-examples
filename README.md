@@ -15,9 +15,10 @@ easy to explore your database.
 
 ## Installing `python-rules-examples`
 
+### Install Python Pre-reqs
 To get started, you will need:
 
-* Python3.8 (Relies on `from __future__ import annotations`, so requires Python 3.8)
+* Pythonv3.8 (Relies on `from __future__ import annotations`, so requires Python 3.8)
 
    * Run the windows installer; on mac/Unix, consider [using brew](https://opensource.com/article/19/5/python-3-default-mac#what-to-do)
    
@@ -27,6 +28,8 @@ To get started, you will need:
 
 Issues?  [Try here](https://github.com/valhuber/fab-quick-start/wiki/Mac-Python-Install-Issues).
 
+
+### Installing this sample
 
 Using your IDE or command line: 
 ```
@@ -39,12 +42,13 @@ pip install -r requirements.txt
 
 ## Project Setup Cookbook
 This project has already been set up.  Here's how we did it.
+We'll be using `nw` as an example.
 
 #### Create Environment
 ```
 # create your project root (check this into scs)
-mkdir python-rules-examples
-cd my-project
+mkdir nw
+cd nw
 virtualenv venv
 # configure SCS to ignore venv
 # windows .env\Scripts\activate
@@ -65,9 +69,9 @@ Use whatever structure you like, but to make things
 definite, here's how we did it for `nw` and `banking`:
 
 ```
-mkdir nw
-cd nw
-cd nw_logic
+# in nw...
+mkdir nw_logic
+mkdir db
 ```
 
 #### Create Models
@@ -81,11 +85,12 @@ create a models file to match it.
 For existing databases, consider using sqlacodegen.
 Here, we'll use `nw` as our example;
 we already have a sqlite database in our
-`nw-app` folder so:
+`nw/db` folder so:
 
 ```
-cd nw_app
-sqlacodegen sqlite:///Northwind_small.sqlite --noviews > nw/nw_logic/app/models.py
+cd db
+sqlacodegen sqlite:///nw.db --noviews > nw/nw_logic/app/models.py
+sqlacodegen sqlite:///Northwind_small.sqlite --noviews > ../nw_logic/models.py
 ```
 The first parameter identifies your database location;
 consult the sqlacodegen documentation.
@@ -155,10 +160,10 @@ else:
     # ... conventional after_flush listeners (to see rules/code contrast)
 ```
 
-
-
 ## FAB Quick Start
-[Python Flask Application Builder (fab)](https://flask-appbuilder.readthedocs.io/en/latest/) creates "basic" applications for database crud operations quickly, with minimal coding.  Typical fab pages can look like this:
+[Python Flask Application Builder (fab)](https://flask-appbuilder.readthedocs.io/en/latest/)
+creates "basic" applications for database crud operations quickly,
+with minimal coding.  Typical fab pages can look like this:
 
 1. __Multi-page:__ apps include 1 page per table
 1. __Multi-table:__ pages include `related_views` for each related child table, and join in parent data
@@ -166,94 +171,55 @@ else:
 1. __Predictive joins:__ favorite field of each parent is shown (product _name_ - not the foreign key `product_id_`)
 1. __Ids last:__ such boring fields are not shown on lists, and at the end on other pages
 
-![generated page](https://drive.google.com/uc?export=view&id=1Q3cG-4rQ6Q6RdZppvkrQzCDhDYHnk-F6)
-
-This is the __FAB Quick Start Guide__.  In about 10 minutes, we'll
-1. __Install__ Python and FAB, and
-1. __Create the application__ above using an existing database called `Northwind` (customers, orders, items, etc).  The app is 52 pages, for 13 underlying tables.
-
+<figure><img src="images/nw/generated_page.png" width="500"><figcaption>Multi-Table Page</figcaption></figure>
 
 
 ***
-
-### Install Python Pre-reqs
-To get started, you will need:
-Python3
-* __Python__
-   * On Windows: just run the [installer](https://www.python.org/downloads/windows/)
-   * On Mac / Unix: install with [brew](https://brew.sh) as described [here](https://opensource.com/article/19/5/python-3-default-mac#what-to-do).
-      * You may encounter some adventures - 
-[try these tips](https://github.com/valhuber/fab-quick-start/wiki/Mac-Python-Install-Issues)
-* __virtualenv__ - a best practice for keeping Python / libraries separate for each project.  Install as described [here](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/#creating-a-virtual-environment) (basically,  `pip install virtualenv`)
-* __IDE:__ Python works with various debuggers; [here](https://github.com/valhuber/fab-quick-start/wiki/IDE-Setup) are setup instructions for two popular ones.  The screen shot below is VSCode (recommended but not required for this Quick Start).
 
 
 ### Create Sample `nw` project
 Follow the procedure below to create a new FAB project.
 
-#### 1 - Create Empty Project Folder and env
-First, we create an empty project folder, with a `venv` for dependencies.  
-We'll use `nw` for our project directory name.
-For more information, see the [FAB docs](https://www.google.com/url?q=https%3A%2F%2Fflask-appbuilder.readthedocs.io%2Fen%2Flatest%2Finstallation.html&sa=D&sntz=1&usg=AFQjCNEUW0UMxjnGD_lI2k5E1QNTHZA8bQ).
-```
-mkdir nw
-cd nw
-virtualenv venv
-# windows .env\Scripts\activate
-source venv/bin/activate
-```
-Note: You can `deactivate` this `venv`, but you must reactivate using the last command above whenever you wish to work on the project again.
-
-#### 2 - Create Empty fab Project
+#### 1 - Create Empty fab Project
 Install FAB (and dependencies), and create a default empty FAB app:
 ```
-pip install flask-appbuilder
+# cd to nw folder
 flask fab create-app
 ```
 You will then be prompted for the project name and your db engine type.  When prompted:
 * Use the default engine
-* Name the project `nw-app`
+* Name the project `nw_app`
 
 You should see a structure as shown in the screen shot in the next section.
 
 We now have a well-formed empty project.  We now need to acquire and __configure a database__, set up SQLAlchemy ORM __`models.py`__, and define our pages with __`views.py`__.
 
-#### 3 - Configure Database
-To get the database:
-1. <a id="raw-url" target="_blank" href="https://github.com/valhuber/fab-quick-start/blob/master/nw-app/Northwind_small.sqlite">Download this file</a>, a sqlite version of Northwind.
-1. Copy it to your `nw-app` folder
-1. Update your `nw-app/config.py` file to denote this database name (illustrated below): `Northwind_small.sqlite`
-
+#### 2 - Configure Database
+Update your `nw-app/config.py` file to denote this database name (illustrated below).
 Your project will look something like this:
 
-![fab_quick-start project](https://drive.google.com/uc?export=view&id=1f_GutzKmhrZ_oFxiTiZ9x-lzwkdJD3cS)
+<figure><img src="images/nw/nw-setup.png" width="500"><figcaption>Architecture</figcaption></figure>
 
 ##### Key FAB inputs can become tedious: `models.py` and `views.py`
 FAB requires that we edit __2 key files__ to make our "empty" project interact with the database.  These can get __tedious,__ due to per-page code required for _each_ table / page.  For more information, [see here](https://github.com/valhuber/fab-quick-start/wiki/Tedious-per-page-code).
 
 The following sections show how to __use generators to avoid the tedious hand creation__ of the `views.py` and the `models.py` files.
 
-#### 4 - Create `models.py`
-You must provide model classes for SQLAlchemy.  That's a bit of work (13 classes in this small example), but we can automate this with __sqlacodegen__, like this:
-```
-cd nw-app
-pip install sqlacodegen
-sqlacodegen sqlite:///Northwind_small.sqlite --noviews > app/models.py
-```
-This overwrites your `nw/nw-app/app/models.py` module.
-For more information, see the [sqlacodegen docs](https://www.google.com/url?q=https%3A%2F%2Fpypi.org%2Fproject%2Fsqlacodegen%2F&sa=D&sntz=1&usg=AFQjCNHZ3ERjfnSO8MA8V20gzLjfeBaIxw).
+#### 3 - Create `models.py`
+We have already created our `models.py` file.
+However, it has not been been discovered how to use it,
+so copy the `models.py` to your `nw/app` folder.
 
-#### 5 - Define `views.py`
+#### 4 - Define `views.py`
 Finally, we need to define some pages.  That's also a bit of work to do that by hand, so let's use __fab-quick-start__
 to create the `views.py` file from the `app/models.py` file (__hit enter__ to accept defaults when prompted):
 
 ```
-pip install fab-quick-start
 fab-quick-start run --favorites="name description" --non_favorites="id" > app/views.py
 ```
 This overwrites your `nw/nw-app/app/views.py` file.  For more information, see the [FAB Quick Start Utility docs](https://github.com/valhuber/fab-quick-start#readme).
 
-#### 6 - Create Admin
+#### 5 - Create Admin
 The FAB system can create tables in your database for authenticating and authorizing users (tables such as `ab_user`, `ab_user_role`, etc).  You create these as follows (Username: `admin`, Password: `p`):
 ```
 (venv)$ export FLASK_APP=app
@@ -269,7 +235,7 @@ Ignore the error "user already exists", since the admin data was pre-loaded.
 
 You can verify your data and admin data like this (mac/unix only):
 ```
-sqlite3 Northwind_small.sqlite  # mac only
+sqlite3 nw.db  # mac only
 > .tables
 > .schema Order
 > select * from ab_user;
@@ -277,7 +243,7 @@ sqlite3 Northwind_small.sqlite  # mac only
 > .quit
 ```
 
-#### 7 - Run `nw' App
+#### 6 - Run `nw' App
 You've now created a app with a dozen pages or so; run it like this:
 ```
 (venv)$ # still cd'd to nw-app
@@ -287,6 +253,3 @@ You've now created a app with a dozen pages or so; run it like this:
 Start your browser [here](http://127.0.0.1:5000/).
 
 ***
-
-
-
