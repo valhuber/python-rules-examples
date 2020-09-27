@@ -75,7 +75,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 basedir = os.path.dirname(basedir)
 basedir = os.path.dirname(basedir)
 
-conn_string = "mysql://root:espresso_logic@127.0.0.1:3309/banking"
+import banking as banking
+conn_string = banking.conn_string  # "mysql://root:espresso_logic@127.0.0.1:3309/banking"
 engine = sqlalchemy.create_engine(conn_string, echo=False)  # sqlalchemy sqls...
 
 session_maker = sqlalchemy.orm.sessionmaker()

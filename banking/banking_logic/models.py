@@ -33,7 +33,7 @@ class ValidState(Base):
 class CUSTOMER(Base):
     __tablename__ = 'CUSTOMER'
 
-    CustNum = Column(MEDIUMINT(9), primary_key=True)
+    CustNum = Column(INTEGER(9), primary_key=True)
     Name = Column(String(50), nullable=False, unique=True)
     CheckingAcctBal = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
     SavingsAcctBal = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
@@ -53,9 +53,9 @@ class ALERT(Base):
         Index('idx_alter_custAcct', 'CustNum', 'AcctNum'),
     )
 
-    AlertID = Column(MEDIUMINT(9), primary_key=True)
+    AlertID = Column(INTEGER(9), primary_key=True)
     CustNum = Column(ForeignKey('CUSTOMER.CustNum', ondelete='CASCADE'), nullable=False, index=True)
-    AcctNum = Column(MEDIUMINT(9), nullable=False)
+    AcctNum = Column(INTEGER(9), nullable=False)
     WhenBalance = Column(DECIMAL(10, 2), nullable=False)
     AccountBalance = Column(DECIMAL(10, 2))
     EmailAddress = Column(String(45))
@@ -66,13 +66,13 @@ class ALERT(Base):
 class CHECKING(Base):
     __tablename__ = 'CHECKING'
 
-    AcctNum = Column(MEDIUMINT(9), primary_key=True, nullable=False)
+    AcctNum = Column(INTEGER(9), primary_key=True, nullable=False)
     CustNum = Column(ForeignKey('CUSTOMER.CustNum', ondelete='CASCADE'), primary_key=True, nullable=False, index=True)
     Deposits = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
     Withdrawls = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
     CurrentBalance = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
     AvailableBalance = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
-    ItemCount = Column(MEDIUMINT(9), server_default=text("'0'"))
+    ItemCount = Column(INTEGER(9), server_default=text("'0'"))
     CreditCode = Column(SMALLINT, server_default=text("'1'"))
     CreditLimit = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
     AcctType = Column(String(2), nullable=False, index=True)
@@ -87,13 +87,13 @@ class LINEOFCREDIT(Base):
     )
 
     CustNum = Column(ForeignKey('CUSTOMER.CustNum', ondelete='CASCADE'), nullable=False, index=True)
-    AcctNum = Column(MEDIUMINT(9))
+    AcctNum = Column(INTEGER(9))
     OverdaftFeeAmt = Column(DECIMAL(10, 2))
     LineOfCreditAmt = Column(DECIMAL(10, 2))
     TotalCharges = Column(DECIMAL(10, 2))
     TotalPayments = Column(DECIMAL(10, 2))
     AvailableBalance = Column(DECIMAL(10, 2))
-    Id = Column(MEDIUMINT(9), primary_key=True)
+    Id = Column(INTEGER(9), primary_key=True)
 
     CUSTOMER = relationship('CUSTOMER')
 
@@ -101,13 +101,13 @@ class LINEOFCREDIT(Base):
 class SAVING(Base):
     __tablename__ = 'SAVINGS'
 
-    AcctNum = Column(MEDIUMINT(9), primary_key=True, nullable=False)
+    AcctNum = Column(INTEGER(9), primary_key=True, nullable=False)
     CustNum = Column(ForeignKey('CUSTOMER.CustNum', ondelete='CASCADE'), primary_key=True, nullable=False, index=True)
     Deposits = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
     Withdrawls = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
     CurrentBalance = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
     AvailableBalance = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
-    ItemCount = Column(MEDIUMINT(9), nullable=False, server_default=text("'0'"))
+    ItemCount = Column(INTEGER(9), nullable=False, server_default=text("'0'"))
     AcctType = Column(String(2), index=True)
 
     CUSTOMER = relationship('CUSTOMER')
@@ -116,10 +116,10 @@ class SAVING(Base):
 class TRANSFERFUND(Base):
     __tablename__ = 'TRANSFER_FUNDS'
 
-    TransId = Column(MEDIUMINT(9), primary_key=True)
-    FromAcct = Column(MEDIUMINT(9), nullable=False)
+    TransId = Column(INTEGER(9), primary_key=True)
+    FromAcct = Column(INTEGER(9), nullable=False)
     FromCustNum = Column(ForeignKey('CUSTOMER.CustNum'), nullable=False, index=True)
-    ToAcct = Column(MEDIUMINT(9), nullable=False)
+    ToAcct = Column(INTEGER(9), nullable=False)
     ToCustNum = Column(ForeignKey('CUSTOMER.CustNum'), nullable=False, index=True)
     TransferAmt = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
     TransDate = Column(DateTime)
@@ -135,9 +135,9 @@ class CHECKING_TRANS(Base):
         Index('U_Name_CHKG_CUST', 'AcctNum', 'CustNum')
     )
 
-    TransId = Column(MEDIUMINT(9), primary_key=True)
-    AcctNum = Column(MEDIUMINT(9), nullable=False)
-    CustNum = Column(MEDIUMINT(9), nullable=False)
+    TransId = Column(INTEGER(9), primary_key=True)
+    AcctNum = Column(INTEGER(9), nullable=False)
+    CustNum = Column(INTEGER(9), nullable=False)
     TransDate = Column(DateTime)
     DepositAmt = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
     WithdrawlAmt = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
@@ -155,13 +155,13 @@ class LOCTRANSACTION(Base):
         Index('fk_LOC_TRANSACTIONS_LINE_OF_CREDIT1_idx', 'CustNum', 'AcctNum')
     )
 
-    TransId = Column(MEDIUMINT(9), primary_key=True)
+    TransId = Column(INTEGER(9), primary_key=True)
     TransDate = Column(DateTime)
     PaymentAmt = Column(DECIMAL(10, 2))
     ChargeAmt = Column(DECIMAL(10, 2))
     ChargeType = Column(String(45), comment='fee, OD, Payment')
-    CustNum = Column(MEDIUMINT(9), nullable=False)
-    AcctNum = Column(MEDIUMINT(9), nullable=False)
+    CustNum = Column(INTEGER(9), nullable=False)
+    AcctNum = Column(INTEGER(9), nullable=False)
 
     LINE_OF_CREDIT = relationship('LINEOFCREDIT')
 
@@ -170,12 +170,12 @@ class SAVINGS_TRANS(Base):
     __tablename__ = 'SAVINGS_TRANS'
     __table_args__ = (
         ForeignKeyConstraint(['AcctNum', 'CustNum'], ['SAVINGS.AcctNum', 'SAVINGS.CustNum'], ondelete='CASCADE'),
-        Index('U_Name_CHKG_CUST', 'AcctNum', 'CustNum')
+        Index('U_Name_SAVINGS_CUST', 'AcctNum', 'CustNum')
     )
 
-    TransId = Column(MEDIUMINT(9), primary_key=True)
-    AcctNum = Column(MEDIUMINT(9), nullable=False)
-    CustNum = Column(MEDIUMINT(9), nullable=False)
+    TransId = Column(INTEGER(9), primary_key=True)
+    AcctNum = Column(INTEGER(9), nullable=False)
+    CustNum = Column(INTEGER(9), nullable=False)
     TransDate = Column(DateTime)
     DepositAmt = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
     WithdrawlAmt = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
