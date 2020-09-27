@@ -13,7 +13,13 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 SECRET_KEY = "\2\1thisismyscretkey\1\2\e\y\y\h"
 
 # The SQLAlchemy connection string.
-SQLALCHEMY_DATABASE_URI = "mysql://root:espresso_logic@127.0.0.1:3309/banking"
+
+db_dir = os.path.dirname(basedir)
+db_loc = db_dir +  "/banking/db/banking.db"
+
+SQLALCHEMY_DATABASE_URI = "sqlite:///" + db_loc
+
+# SQLALCHEMY_DATABASE_URI = "mysql://root:espresso_logic@127.0.0.1:3309/banking"
 # SQLALCHEMY_DATABASE_URI = 'mysql://myapp@localhost/myapp'
 # SQLALCHEMY_DATABASE_URI = 'postgresql://root:password@localhost/myapp'
 

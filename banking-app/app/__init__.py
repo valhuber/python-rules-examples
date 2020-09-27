@@ -29,11 +29,11 @@ if use_rules:
               required_path_python_rules)
 
     import banking.banking_logic.models as models
-    from logic_engine.util import row_prt, prt
+    from python_rules.util import row_prt, prt
     from banking.banking_logic import session  # opens db, activates logic listener <--
 
-    from logic_engine.rule_bank import rule_bank_withdraw  # required to avoid circular imports
-    from logic_engine.rule_bank import rule_bank_setup
+    from python_rules.rule_bank import rule_bank_withdraw  # required to avoid circular imports
+    from python_rules.rule_bank import rule_bank_setup
     from banking.banking_logic.banking_rules_bank import activate_basic_rules
 
 """
