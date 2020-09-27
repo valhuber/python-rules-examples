@@ -14,6 +14,8 @@ easy to explore your database.
 
 
 ## Installing `python-rules-examples`
+You can install this pre-configured example
+as described below.
 
 ### Install Python Pre-reqs
 To get started, you will need:
@@ -39,6 +41,25 @@ virtualenv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
+
+### Verification
+
+Either in your IDE or the command line,
+you can run tests and examine the logs
+that depict logic execution and chaining:
+```
+(venv)$ cd nw/trans_tests
+(venv)$ python upd_order_reuse.py
+```
+
+You can also run the fab application:
+```
+(venv)$ cd ../../nw_app
+(venv)$ export FLASK_APP=app
+(venv)$ flask run
+```
+Start your browser [here](http://127.0.0.1:5000/),
+login as admin, p.
 
 ## Project Setup Cookbook
 This project has already been set up.  Here's how we did it.
