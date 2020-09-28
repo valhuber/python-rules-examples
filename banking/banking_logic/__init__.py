@@ -11,39 +11,6 @@ from banking.banking_logic.banking_rules_bank import activate_basic_rules
 
 from python_rules.util import prt
 
-'''
-These listeners are part of the hand-coded logic alternative
-(Not required in a rules-based approach)
-'''
-
-
-def before_commit(a_session: session):
-    print("logic: before commit!")
-    # for obj in versioned_objects(a_session.dirty):
-    for obj in a_session.dirty:
-        print("logic: before commit! --> " + str(obj))
-        obj_class = obj.__tablename__
-    print("logic called: before commit!  EXIT")
-
-
-def before_flush(a_session: session, a_flush_context, an_instances):
-    print("before_flush")
-    for each_instance in a_session.dirty:
-        print("before_flush flushing Dirty! --> " + str(each_instance))
-        obj_class = each_instance.__tablename__
-
-    for each_instance in a_session.new:
-        print("before_flush flushing New! --> " + str(each_instance))
-        obj_class = each_instance.__tablename__
-
-
-    for each_instance in a_session.deleted:
-        print("before_flush flushing New! --> " + str(each_instance))
-        obj_class = each_instance.__tablename__
-
-    print("before_flush  EXIT")
-
-
 """ Initialization
 1 - Connect
 2 - Register listeners (either hand-coded ones above, or the logic-engine listeners).
@@ -73,11 +40,13 @@ if do_engine_logging:
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 basedir = os.path.dirname(basedir)
-basedir = os.path.dirname(basedir)
 
 import banking as banking
 conn_string = banking.conn_string  # "mysql://root:espresso_logic@127.0.0.1:3309/banking"
-engine = sqlalchemy.create_engine(conn_string, echo=False)  # sqlalchemy sqls...
+conn_string = "sqlite:///" + basedir + "/db/banking.db"
+engine = sqlalchemy.create_engine(conn_string,
+                                  pool_pre_ping= True,
+                                  echo=True)  # sqlalchemy sqls...
 
 session_maker = sqlalchemy.orm.sessionmaker()
 session_maker.configure(bind=engine)
