@@ -276,3 +276,7 @@ You've now created a app with a dozen pages or so; run it like this:
 Start your browser [here](http://127.0.0.1:5000/).
 
 ***
+
+## Status
+
+`nw` running, `banking` under development

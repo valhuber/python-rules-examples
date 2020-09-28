@@ -169,7 +169,7 @@ class LOCTRANSACTION(Base):
 class SAVINGSTRANS(Base):
     __tablename__ = 'SAVINGSTRANS'
     __table_args__ = (
-        ForeignKeyConstraint(['AcctNum', 'CustNum'], ['SAVINGS.AcctNum', 'SAVINGS.CustNum'], ondelete='CASCADE'),
+        ForeignKeyConstraint(['AcctNum', 'CustNum'], ['SAVING.AcctNum', 'SAVING.CustNum'], ondelete='CASCADE'),
         Index('U_Name_SAVINGS_CUST', 'AcctNum', 'CustNum')
     )
 
