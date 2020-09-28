@@ -9,14 +9,14 @@ metadata = Base.metadata
 
 
 class ValidAcctType(Base):
-    __tablename__ = 'Valid_Acct_Type'
+    __tablename__ = 'ValidAcctType'
 
     AcctType = Column(String(2), primary_key=True)
     AcctDescription = Column(String(45))
 
 
 class ValidCredit(Base):
-    __tablename__ = 'valid_credit'
+    __tablename__ = 'ValidCredit'
 
     creditCode = Column(SMALLINT(6), primary_key=True)
     displayValue = Column(String(50))
@@ -24,7 +24,7 @@ class ValidCredit(Base):
 
 
 class ValidState(Base):
-    __tablename__ = 'valid_state'
+    __tablename__ = 'ValidState'
 
     stateCode = Column(String(2), primary_key=True)
     stateName = Column(String(255), nullable=False)
@@ -81,7 +81,7 @@ class CHECKING(Base):
 
 
 class LINEOFCREDIT(Base):
-    __tablename__ = 'LINE_OF_CREDIT'
+    __tablename__ = 'LINEOFCREDIT'
     __table_args__ = (
         Index('idx_loc_custAcct', 'CustNum', 'AcctNum'),
     )
@@ -99,7 +99,7 @@ class LINEOFCREDIT(Base):
 
 
 class SAVING(Base):
-    __tablename__ = 'SAVINGS'
+    __tablename__ = 'SAVING'
 
     AcctNum = Column(INTEGER(9), primary_key=True, nullable=False)
     CustNum = Column(ForeignKey('CUSTOMER.CustNum', ondelete='CASCADE'), primary_key=True, nullable=False, index=True)
@@ -114,7 +114,7 @@ class SAVING(Base):
 
 
 class TRANSFERFUND(Base):
-    __tablename__ = 'TRANSFER_FUNDS'
+    __tablename__ = 'TRANSFERFUND'
 
     TransId = Column(INTEGER(9), primary_key=True)
     FromAcct = Column(INTEGER(9), nullable=False)
@@ -129,7 +129,7 @@ class TRANSFERFUND(Base):
 
 
 class CHECKINGTRANS(Base):
-    __tablename__ = 'CHECKING_TRANS'
+    __tablename__ = 'CHECKINGTRANS'
     __table_args__ = (
         ForeignKeyConstraint(['AcctNum', 'CustNum'], ['CHECKING.AcctNum', 'CHECKING.CustNum'], ondelete='CASCADE'),
         Index('U_Name_CHKG_CUST', 'AcctNum', 'CustNum')
@@ -149,9 +149,9 @@ class CHECKINGTRANS(Base):
 
 
 class LOCTRANSACTION(Base):
-    __tablename__ = 'LOC_TRANSACTIONS'
+    __tablename__ = 'LOCTRANSACTION'
     __table_args__ = (
-        ForeignKeyConstraint(['CustNum', 'AcctNum'], ['LINE_OF_CREDIT.CustNum', 'LINE_OF_CREDIT.AcctNum'], ondelete='CASCADE'),
+        ForeignKeyConstraint(['CustNum', 'AcctNum'], ['LINEOFCREDIT.CustNum', 'LINEOFCREDIT.AcctNum'], ondelete='CASCADE'),
         Index('fk_LOC_TRANSACTIONS_LINE_OF_CREDIT1_idx', 'CustNum', 'AcctNum')
     )
 
@@ -167,7 +167,7 @@ class LOCTRANSACTION(Base):
 
 
 class SAVINGSTRANS(Base):
-    __tablename__ = 'SAVING_STRANS'
+    __tablename__ = 'SAVINGSTRANS'
     __table_args__ = (
         ForeignKeyConstraint(['AcctNum', 'CustNum'], ['SAVINGS.AcctNum', 'SAVINGS.CustNum'], ondelete='CASCADE'),
         Index('U_Name_SAVINGS_CUST', 'AcctNum', 'CustNum')
