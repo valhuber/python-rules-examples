@@ -1,4 +1,5 @@
 import os
+from shutil import copyfile
 
 import sqlalchemy
 from sqlalchemy import event
@@ -41,9 +42,17 @@ if do_engine_logging:
 basedir = os.path.abspath(os.path.dirname(__file__))
 basedir = os.path.dirname(basedir)
 
+print("\n****************\n"
+      "  IMPORTANT - create banking.db from banking-gold.db in " + basedir + "/db/" +
+      "\n****************")
+
+banking_loc = basedir + "/db/banking.db"
+banking_source = basedir + "/db/banking-gold.db"
+copyfile(src=banking_source, dst=banking_loc)
+
 import banking as banking
 conn_string = banking.conn_string  # "mysql://root:espresso_logic@127.0.0.1:3309/banking"
-conn_string = "sqlite:///" + basedir + "/db/banking.db"
+conn_string = "sqlite:///" + banking_loc
 engine = sqlalchemy.create_engine(conn_string,
                                   pool_pre_ping= True,
                                   echo=True)  # sqlalchemy sqls...

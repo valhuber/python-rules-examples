@@ -49,10 +49,10 @@ class CHECKING_TRANSModelView(ModelView):
    related_views = []
 
 appbuilder.add_view(
-      CHECKING_TRANSModelView, "CHECKING_TRANS List", icon="fa-folder-open-o", category="Menu")
+      CHECKING_TRANSModelView, "CHECKINGTRANS List", icon="fa-folder-open-o", category="Menu")
 
 
-# table already generated per recursion: CHECKING_TRANS
+# table already generated per recursion: CHECKINGTRANS
 
 
 class CHECKINGModelView(ModelView):
@@ -139,10 +139,10 @@ class SAVINGS_TRANSModelView(ModelView):
    related_views = []
 
 appbuilder.add_view(
-      SAVINGS_TRANSModelView, "SAVINGS_TRANS List", icon="fa-folder-open-o", category="Menu")
+      SAVINGS_TRANSModelView, "SAVINGSTRANS List", icon="fa-folder-open-o", category="Menu")
 
 
-# table already generated per recursion: SAVINGS_TRANS
+# table already generated per recursion: SAVINGSTRANS
 
 
 class SAVINGSModelView(ModelView):
@@ -202,6 +202,6 @@ appbuilder.add_view(
       valid_stateModelView, "valid_state List", icon="fa-folder-open-o", category="Menu")
 
 
-# table already generated per recursion: CUSTOMER# table already generated per recursion: ALERT# table already generated per recursion: CHECKING# table already generated per recursion: LINE_OF_CREDIT# table already generated per recursion: SAVINGS# table already generated per recursion: TRANSFER_FUNDS# table already generated per recursion: CHECKING_TRANS# table already generated per recursion: LOC_TRANSACTIONS# table already generated per recursion: SAVINGS_TRANS#  12 table(s) in model; generated 12 page(s), including 6 related_view(s).
+# table already generated per recursion: CUSTOMER# table already generated per recursion: ALERT# table already generated per recursion: CHECKING# table already generated per recursion: LINE_OF_CREDIT# table already generated per recursion: SAVINGS# table already generated per recursion: TRANSFER_FUNDS# table already generated per recursion: CHECKINGTRANS# table already generated per recursion: LOC_TRANSACTIONS# table already generated per recursion: SAVINGSTRANS#  12 table(s) in model; generated 12 page(s), including 6 related_view(s).
 
 

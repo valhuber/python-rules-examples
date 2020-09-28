@@ -128,7 +128,7 @@ class TRANSFERFUND(Base):
     CUSTOMER1 = relationship('CUSTOMER', primaryjoin='TRANSFERFUND.ToCustNum == CUSTOMER.CustNum')
 
 
-class CHECKING_TRANS(Base):
+class CHECKINGTRANS(Base):
     __tablename__ = 'CHECKING_TRANS'
     __table_args__ = (
         ForeignKeyConstraint(['AcctNum', 'CustNum'], ['CHECKING.AcctNum', 'CHECKING.CustNum'], ondelete='CASCADE'),
@@ -166,8 +166,8 @@ class LOCTRANSACTION(Base):
     LINE_OF_CREDIT = relationship('LINEOFCREDIT')
 
 
-class SAVINGS_TRANS(Base):
-    __tablename__ = 'SAVINGS_TRANS'
+class SAVINGSTRANS(Base):
+    __tablename__ = 'SAVING_STRANS'
     __table_args__ = (
         ForeignKeyConstraint(['AcctNum', 'CustNum'], ['SAVINGS.AcctNum', 'SAVINGS.CustNum'], ondelete='CASCADE'),
         Index('U_Name_SAVINGS_CUST', 'AcctNum', 'CustNum')

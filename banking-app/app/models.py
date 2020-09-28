@@ -131,7 +131,7 @@ class TRANSFERFUND(Base):
 
 
 class CHECKINGTRAN(Base):
-    __tablename__ = 'CHECKING_TRANS'
+    __tablename__ = 'CHECKINGTRANS'
     __table_args__ = (
         ForeignKeyConstraint(['AcctNum', 'CustNum'], ['CHECKING.AcctNum', 'CHECKING.CustNum'], ondelete='CASCADE'),
         Index('U_Name_CHKG_CUST', 'AcctNum', 'CustNum')
@@ -169,7 +169,7 @@ class LOCTRANSACTION(Base):
 
 
 class SAVINGSTRAN(Base):
-    __tablename__ = 'SAVINGS_TRANS'
+    __tablename__ = 'SAVINGSTRANS'
     __table_args__ = (
         ForeignKeyConstraint(['AcctNum', 'CustNum'], ['SAVINGS.AcctNum', 'SAVINGS.CustNum'], ondelete='CASCADE'),
         Index('U_Name_CHKG_CUST', 'AcctNum', 'CustNum')

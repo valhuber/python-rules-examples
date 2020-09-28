@@ -86,7 +86,7 @@ INSERT INTO `CHECKING` VALUES (1,1,0.00,0.00,0.00,0.00,0,1,1000.00,'C'),(2,2,0.0
 UNLOCK TABLES;
 
 --
--- Table structure for table `CHECKING_TRANS`
+-- Table structure for table `CHECKINGTRANS`
 --
 
 DROP TABLE IF EXISTS `CHECKING_TRANS`;
@@ -109,7 +109,7 @@ CREATE TABLE `CHECKING_TRANS` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `CHECKING_TRANS`
+-- Dumping data for table `CHECKINGTRANS`
 --
 
 LOCK TABLES `CHECKING_TRANS` WRITE;
@@ -251,7 +251,7 @@ INSERT INTO `SAVINGS` VALUES (1,1,0.00,0.00,0.00,0.00,0,'S');
 UNLOCK TABLES;
 
 --
--- Table structure for table `SAVINGS_TRANS`
+-- Table structure for table `SAVINGSTRANS`
 --
 
 DROP TABLE IF EXISTS `SAVINGS_TRANS`;
@@ -272,7 +272,7 @@ CREATE TABLE `SAVINGS_TRANS` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `SAVINGS_TRANS`
+-- Dumping data for table `SAVINGSTRANS`
 --
 
 LOCK TABLES `SAVINGS_TRANS` WRITE;
@@ -566,7 +566,7 @@ CREATE TABLE `ab_view_menu` (
 
 LOCK TABLES `ab_view_menu` WRITE;
 /*!40000 ALTER TABLE `ab_view_menu` DISABLE KEYS */;
-INSERT INTO `ab_view_menu` VALUES (33,'ALERT List'),(32,'ALERTModelView'),(8,'AuthDBView'),(17,'Base Permissions'),(29,'CHECKING List'),(27,'CHECKING_TRANS List'),(26,'CHECKING_TRANSModelView'),(28,'CHECKINGModelView'),(45,'CUSTOMER List'),(44,'CUSTOMERModelView'),(1,'IndexView'),(37,'LINE_OF_CREDIT List'),(36,'LINE_OF_CREDITModelView'),(13,'List Roles'),(10,'List Users'),(35,'LOC_TRANSACTIONS List'),(34,'LOC_TRANSACTIONSModelView'),(3,'LocaleView'),(25,'Menu'),(22,'MenuApi'),(21,'Permission on Views/Menus'),(16,'PermissionModelView'),(20,'PermissionViewModelView'),(6,'ResetMyPasswordView'),(5,'ResetPasswordView'),(12,'RoleModelView'),(41,'SAVINGS List'),(39,'SAVINGS_TRANS List'),(38,'SAVINGS_TRANSModelView'),(40,'SAVINGSModelView'),(11,'Security'),(4,'SecurityApi'),(43,'TRANSFER_FUNDS List'),(42,'TRANSFER_FUNDSModelView'),(15,'User\'s Statistics'),(9,'UserDBModelView'),(7,'UserInfoEditView'),(14,'UserStatsChartView'),(2,'UtilView'),(24,'Valid_Acct_Type List'),(23,'Valid_Acct_TypeModelView'),(31,'valid_credit List'),(30,'valid_creditModelView'),(47,'valid_state List'),(46,'valid_stateModelView'),(18,'ViewMenuModelView'),(19,'Views/Menus');
+INSERT INTO `ab_view_menu` VALUES (33,'ALERT List'),(32,'ALERTModelView'),(8,'AuthDBView'),(17,'Base Permissions'),(29,'CHECKING List'),(27,'CHECKINGTRANS List'),(26,'CHECKING_TRANSModelView'),(28,'CHECKINGModelView'),(45,'CUSTOMER List'),(44,'CUSTOMERModelView'),(1,'IndexView'),(37,'LINE_OF_CREDIT List'),(36,'LINE_OF_CREDITModelView'),(13,'List Roles'),(10,'List Users'),(35,'LOC_TRANSACTIONS List'),(34,'LOC_TRANSACTIONSModelView'),(3,'LocaleView'),(25,'Menu'),(22,'MenuApi'),(21,'Permission on Views/Menus'),(16,'PermissionModelView'),(20,'PermissionViewModelView'),(6,'ResetMyPasswordView'),(5,'ResetPasswordView'),(12,'RoleModelView'),(41,'SAVINGS List'),(39,'SAVINGSTRANS List'),(38,'SAVINGS_TRANSModelView'),(40,'SAVINGSModelView'),(11,'Security'),(4,'SecurityApi'),(43,'TRANSFER_FUNDS List'),(42,'TRANSFER_FUNDSModelView'),(15,'User\'s Statistics'),(9,'UserDBModelView'),(7,'UserInfoEditView'),(14,'UserStatsChartView'),(2,'UtilView'),(24,'Valid_Acct_Type List'),(23,'Valid_Acct_TypeModelView'),(31,'valid_credit List'),(30,'valid_creditModelView'),(47,'valid_state List'),(46,'valid_stateModelView'),(18,'ViewMenuModelView'),(19,'Views/Menus');
 /*!40000 ALTER TABLE `ab_view_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
