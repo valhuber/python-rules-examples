@@ -30,6 +30,21 @@ class ValidState(Base):
     stateName = Column(String(255), nullable=False)
 
 
+class TRANSFERFUND(Base):
+    __tablename__ = 'TRANSFERFUND'
+
+    TransId = Column(INTEGER(9), primary_key=True)
+    FromAcct = Column(INTEGER(9), nullable=False)
+    FromCustNum = Column(ForeignKey('CUSTOMER.CustNum'), nullable=False, index=True)
+    ToAcct = Column(INTEGER(9), nullable=False)
+    ToCustNum = Column(ForeignKey('CUSTOMER.CustNum'), nullable=False, index=True)
+    TransferAmt = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
+    TransDate = Column(DateTime)
+
+    # CUSTOMER = relationship('CUSTOMER', primaryjoin='TRANSFERFUND.FromCustNum == CUSTOMER.CustNum')
+    # CUSTOMER1 = relationship('CUSTOMER', primaryjoin='TRANSFERFUND.ToCustNum == CUSTOMER.CustNum')
+
+
 class CUSTOMER(Base):
     __tablename__ = 'CUSTOMER'
 
@@ -45,6 +60,14 @@ class CUSTOMER(Base):
     Phone = Column(String(45))
     emailAddress = Column(String(45))
 
+    CHECKINGLIST = relationship("CHECKING", backref="CUSTOMER")
+    ALERTLIST = relationship("ALERT", backref="CUSTOMER")
+    LINEOFCREDITLIST = relationship("LINEOFCREDIT", backref="CUSTOMER")
+    SAVINGLIST = relationship("SAVING", backref="CUSTOMER")
+
+    # https://docs.sqlalchemy.org/en/13/orm/join_conditions.html
+    TRANSFERFUNDFROMLIST = relationship('TRANSFERFUND', backref = "FROMCUSTOMER", foreign_keys="TRANSFERFUND.FromCustNum")
+    TRANSFERFUNDTOLIST = relationship('TRANSFERFUND', backref = "TOCUSTOMER", foreign_keys="TRANSFERFUND.ToCustNum")
 
 
 class ALERT(Base):
@@ -59,8 +82,6 @@ class ALERT(Base):
     WhenBalance = Column(DECIMAL(10, 2), nullable=False)
     AccountBalance = Column(DECIMAL(10, 2))
     EmailAddress = Column(String(45))
-
-    CUSTOMER = relationship('CUSTOMER')
 
 
 class CHECKING(Base):
@@ -77,7 +98,7 @@ class CHECKING(Base):
     CreditLimit = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
     AcctType = Column(String(2), nullable=False, index=True)
 
-    CUSTOMER = relationship('CUSTOMER')
+    CHECKINGTRANSLIST = relationship('CHECKINGTRANS', backref="CHECKING")
 
 
 class LINEOFCREDIT(Base):
@@ -95,7 +116,7 @@ class LINEOFCREDIT(Base):
     AvailableBalance = Column(DECIMAL(10, 2))
     Id = Column(INTEGER(9), primary_key=True)
 
-    CUSTOMER = relationship('CUSTOMER')
+    LOCTRANSACTIONLIST = relationship("LOCTRANSACTION", backref="LINEOFCREDIT")
 
 
 class SAVING(Base):
@@ -110,23 +131,7 @@ class SAVING(Base):
     ItemCount = Column(INTEGER(9), nullable=False, server_default=text("'0'"))
     AcctType = Column(String(2), index=True)
 
-    CUSTOMER = relationship('CUSTOMER')
-
-
-class TRANSFERFUND(Base):
-    __tablename__ = 'TRANSFERFUND'
-
-    TransId = Column(INTEGER(9), primary_key=True)
-    FromAcct = Column(INTEGER(9), nullable=False)
-    FromCustNum = Column(ForeignKey('CUSTOMER.CustNum'), nullable=False, index=True)
-    ToAcct = Column(INTEGER(9), nullable=False)
-    ToCustNum = Column(ForeignKey('CUSTOMER.CustNum'), nullable=False, index=True)
-    TransferAmt = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
-    TransDate = Column(DateTime)
-
-    CUSTOMER = relationship('CUSTOMER', primaryjoin='TRANSFERFUND.FromCustNum == CUSTOMER.CustNum')
-    CUSTOMER1 = relationship('CUSTOMER', primaryjoin='TRANSFERFUND.ToCustNum == CUSTOMER.CustNum')
-
+    SAVINGSTRANSLIST = relationship("SAVINGSTRANS", backref="SAVING")
 
 class CHECKINGTRANS(Base):
     __tablename__ = 'CHECKINGTRANS'
@@ -145,7 +150,7 @@ class CHECKINGTRANS(Base):
     ChkNo = Column(String(9))
     ImageURL = Column(String(45))
 
-    CHECKING = relationship('CHECKING')
+    # CHECKING = relationship('CHECKING', backref="CHECKINGTRANS" ) fails
 
 
 class LOCTRANSACTION(Base):
@@ -163,9 +168,6 @@ class LOCTRANSACTION(Base):
     CustNum = Column(INTEGER(9), nullable=False)
     AcctNum = Column(INTEGER(9), nullable=False)
 
-    LINE_OF_CREDIT = relationship('LINEOFCREDIT')
-
-
 class SAVINGSTRANS(Base):
     __tablename__ = 'SAVINGSTRANS'
     __table_args__ = (
@@ -180,5 +182,3 @@ class SAVINGSTRANS(Base):
     DepositAmt = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
     WithdrawlAmt = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
     Total = Column(DECIMAL(10, 2), server_default=text("'0.00'"))
-
-    SAVING = relationship('SAVING')
