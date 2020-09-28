@@ -1,3 +1,4 @@
+import datetime
 import os
 import sqlalchemy
 import banking.banking_logic.models as models
@@ -10,7 +11,8 @@ delete_deposit = session.query(models.CHECKINGTRANS).filter(models.CHECKINGTRANS
 print("\ndelete checking trans, affected: " + str(delete_deposit) + " rows")
 session.commit()
 
-deposit = models.CHECKINGTRANS(TransId=100, CustNum=2, AcctNum=2, DepositAmt=1000, WithdrawlAmt=0, TransDate='2020-10-01')
+trans_date = datetime.datetime(2020, 10, 1)
+deposit = models.CHECKINGTRANS(TransId=100, CustNum=2, AcctNum=2, DepositAmt=1000, WithdrawlAmt=0, TransDate=trans_date)
 print("\n\n - deposit checking trans: " + str(deposit))
 session.add(deposit)
 session.commit()
